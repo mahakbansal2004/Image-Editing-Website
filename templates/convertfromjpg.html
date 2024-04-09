@@ -1,0 +1,40 @@
+<!-- convertfromjpg.html -->
+{% extends 'base.html' %}
+{% block title %} Convert Image {% endblock title %}
+{% block body %}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h1 class="card-title text-center mb-4">Convert Your Images</h1>
+                    <form action="/convertfromjpg" method="POST" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="imageInput" class="form-label visually-hidden">Select Image to Convert</label>
+                            <input class="form-control" type="file" id="imageInput" name="file" accept="image/*">
+                        </div>
+                        <div class="mb-3">
+                            <label for="formatSelect" class="form-label">Select Target Format:</label>
+                            <select class="form-select" id="formatSelect" name="format">
+                                <option value="png">PNG</option>
+                                <option value="jpeg">JPEG</option>
+                                <option value="gif">GIF</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Convert Image</button>
+                    </form>
+                    {% if converted_img_url %}
+                    <div class="alert alert-success mt-3" role="alert">
+                        Image converted to JPG successfully!
+                    </div>
+                    <a href="{{ converted_img_url }}" class="btn btn-primary btn-lg btn-block mt-3">Click here to download your converted image</a>
+                {% endif %}
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}

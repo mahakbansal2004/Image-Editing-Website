@@ -1,0 +1,209 @@
+{% extends 'base.html' %}
+{% block title %} Photo Editor {% endblock title %} 
+{% block body %}
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h1 class="card-title text-center mb-4">Photo Editor</h1>
+                        <br>
+                        <div id="editor-container">
+                            <div id="editor">
+                                <form action="/photoeditor" method="POST" enctype="multipart/form-data" id="upload-form">
+                                    <input type="file" id="imageInput" name="file" accept="image/*">
+                                    <input type="hidden" id="rotationAngleInput" name="rotationAngle" value="0">
+                                    <div id="canvas-container">
+                                        <canvas id="canvas"></canvas>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-lg btn-block mt-3">Process Image</button>
+                                </form>
+                            </div>
+                            <div id="options">
+                                <button onclick="rotate()">Rotate</button>
+                                <button onclick="draw()">Draw</button>
+                                <div id="colorOptions" style="display: none;">
+                                    <button style="background-color: red;" onclick="setColor('red')"></button>
+                                    <button style="background-color: green;" onclick="setColor('green')"></button>
+                                    <button style="background-color: blue;" onclick="setColor('blue')"></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="imageContainer">
+                            <img id="rotatedImage" src="" style="display: none;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        #editor-container {
+            text-align: center;
+        }
+        #canvas-container {
+            position: relative;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            width: 100%;
+            height: 500px;
+        }
+        #canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        #options {
+            margin-bottom: 20px;
+        }
+    </style>
+
+    <script>
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+        var imageInput = document.getElementById('imageInput');
+        var image = new Image();
+        var rotationAngle = 0;
+        var canvasContainer = document.getElementById('canvas-container');
+    
+        // Drawn elements array
+        var drawnElements = [];
+    
+        imageInput.addEventListener('change', function(event) {
+            var file = event.target.files[0];
+            var reader = new FileReader();
+    
+            reader.onload = function(event) {
+                image.src = event.target.result;
+                image.onload = function() {
+                    var aspectRatio = image.width / image.height;
+                    if (aspectRatio >= 1) {
+                        canvas.width = canvasContainer.offsetWidth;
+                        canvas.height = canvas.width / aspectRatio;
+                    } else {
+                        canvas.height = canvasContainer.offsetHeight;
+                        canvas.width = canvas.height * aspectRatio;
+                    }
+                    ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+                    redrawDrawnElements(); // Redraw drawn elements on image
+                };
+            };
+    
+            reader.readAsDataURL(file);
+        });
+    
+        document.getElementById('upload-form').addEventListener('submit', function(event) {
+            document.getElementById('rotationAngleInput').value = rotationAngle;
+        });
+    
+        function rotate() {
+            rotationAngle += 90;
+            document.getElementById('rotationAngleInput').value = rotationAngle;
+            redrawCanvas(); // Clear canvas and redraw everything
+        }
+    
+        var color = 'black';
+    
+        function draw() {
+            var colorOptions = document.getElementById('colorOptions');
+            if (colorOptions.style.display === 'none') {
+                colorOptions.style.display = 'block';
+            } else {
+                colorOptions.style.display = 'none';
+            }
+        }
+    
+        function setColor(selectedColor) {
+            color = selectedColor;
+        }
+    
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', drawLine);
+        canvas.addEventListener('mouseup', stopDrawing);
+    
+        var isDrawing = false;
+        var drawnPoints = []; // Array to store drawn points
+    
+        function startDrawing(e) {
+            isDrawing = true;
+            var rect = canvas.getBoundingClientRect();
+            var x = e.clientX - rect.left;
+            var y = e.clientY - rect.top;
+            drawnPoints.push({ x: x, y: y }); // Store the starting point
+        }
+    
+        function drawLine(e) {
+            if (!isDrawing) return;
+            var rect = canvas.getBoundingClientRect();
+            var x = e.clientX - rect.left;
+            var y = e.clientY - rect.top;
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 5;
+            ctx.lineCap = 'round';
+            ctx.beginPath();
+            ctx.moveTo(drawnPoints[drawnPoints.length - 1].x, drawnPoints[drawnPoints.length - 1].y);
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            drawnPoints.push({ x: x, y: y }); // Store the new point
+        }
+    
+        function stopDrawing() {
+            isDrawing = false;
+            storeDrawnElements(); // Store the drawn elements
+        }
+    
+        function storeDrawnElements() {
+            drawnElements.push({
+                color: color,
+                lineWidth: 5,
+                points: drawnPoints.slice() // Make a copy of the drawn points
+            });
+            drawnPoints = []; // Clear the drawn points array
+        }
+    
+        function redrawCanvas() {
+            // Clear the canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+            // Redraw the image
+            ctx.save();
+            ctx.translate(canvas.width / 2, canvas.height / 2);
+            ctx.rotate(rotationAngle * Math.PI / 180);
+            ctx.drawImage(image, -canvas.width / 2, -canvas.height / 2, canvas.width, canvas.height);
+            ctx.restore();
+    
+            // Redraw all stored drawn elements
+            redrawDrawnElements();
+        }
+
+        function redrawDrawnElements() {
+            // Clear the canvas before drawing elements
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Redraw the rotated image
+            ctx.save();
+            ctx.translate(canvas.width / 2, canvas.height / 2);
+            ctx.rotate(rotationAngle * Math.PI / 180);
+            ctx.drawImage(image, -canvas.width / 2, -canvas.height / 2, canvas.width, canvas.height);
+            ctx.restore();
+
+            // Redraw all stored drawn elements
+            drawnElements.forEach(function(element){
+                ctx.strokeStyle = element.color;
+                ctx.lineWidth = element.lineWidth;
+                ctx.lineCap = 'round';
+                ctx.beginPath();
+                var points = element.points;
+                ctx.moveTo(points[0].x, points[0].y);
+                for (var i = 1; i < points.length; i++) {
+                    ctx.lineTo(points[i].x, points[i].y);
+                }
+                ctx.stroke();
+            });
+        }
+    </script>
+    {% endblock body %}
+

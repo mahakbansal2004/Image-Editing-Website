@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %} Convert to JPG {% endblock title %}
+{% block body %}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h1 class="card-title text-center mb-4">Convert Your Images to JPG</h1>
+                    <br>
+                    <form action="/converttojpg" method="POST" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="imageInput" class="form-label visually-hidden">Select Image to Convert</label>
+                            <!-- Change name attribute to "file" to match Flask code -->
+                            <input class="form-control" type="file" id="imageInput" name="file" accept="image/*">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Convert to JPG</button>
+                    </form>
+                    {% if converted_img_url %}
+                        <div class="alert alert-success mt-3" role="alert">
+                            Image converted to JPG successfully!
+                        </div>
+                        <a href="{{ converted_img_url }}" class="btn btn-primary btn-lg btn-block mt-3">Click here to download your converted image</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}

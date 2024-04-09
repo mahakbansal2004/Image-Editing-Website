@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>{% block title %} {% endblock title %}Hello, world!</title>
+</head>
+<body>
+    <div style="margin-bottom: 40px;">
+    <nav class="navbar navbar-expand-lg bg-primary fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <img src="static/logo2.png" alt="Mahak Image Editing" style="width: 100px; height: 50px;">
+        </a>
+        <span class="navbar-toggler-icon"></span>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('compress_image') }}">Compress Image</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/resizeimage">Resize Image</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/cropimage">Crop Image</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/converttojpg">Convert to JPG</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/photoeditor">Photo Editor</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        More Tools
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <table class="table table-borderless table-hover mb-0" style="background-color: #f8f9fa; border-radius: 10px;">                            <thead class="thead-dark">
+                                <tr>
+                                    <th class="text-center">Optimize</th>
+                                    <th class="text-center">Create</th>
+                                    <th class="text-center">Modify</th>
+                                    <th class="text-center">Convert</th>
+                                    <th class="text-center">Security</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><a class="dropdown-item text-white" href="{{ url_for('compress_image') }}">Compress Image</a></td>
+                                    <td><a class="dropdown-item text-white" href="/memegenerator">meme generator</a></td>
+                                    <td><a class="dropdown-item text-white" href="/resizeimage">resizing</a></td>
+                                    <td><a class="dropdown-item text-white" href="/converttojpg">convert to jpg</a></td>
+                                    <td><a class="dropdown-item text-white" href="/watermarkimage">watermark image</a></td>
+                                </tr>
+                                <tr>
+                                    <td><a class="dropdown-item text-white" href="/upscale">upscale</a></td>
+                                    <td><a class="dropdown-item text-white" href="/photoeditor">photo editor</a></td>
+                                    <td><a class="dropdown-item text-white" href="/cropimage">crop</a></td>
+                                    <td><a class="dropdown-item text-white" href="/convertfromjpg">convert from jpg</a></td>
+                                    <td><a class="dropdown-item text-white" href="/blurimage">blur image</a></td>
+                                </tr>
+                                <tr>
+                                    <td><a class="dropdown-item text-white" href="/removebackground">remove background</a></td>
+                                    <td></td>
+                                    <td><a class="dropdown-item text-white" href="/rotate">rotate</a></td>
+                                    <td><a class="dropdown-item text-white" href="/htmltoimage">html to image</a></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0" action="/success" method="POST">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="query">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
+</div>
+<footer class="bg-dark text-white text-center py-0 fixed-bottom">
+    <p>&copy; 2024 Mahak Image Editing. All rights reserved.</p>
+  </footer>
+
+
+<style>
+    .fixed-top {
+        margin-bottom: 20px;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000; /* Ensure it's above other content */
+    }
+    table {
+        
+        box-shadow: 
+            5px 0 10px rgba(0, 0, 0, 0.2), /* Shadow on the right */
+            -5px 0 10px rgba(0, 0, 0, 0.2); /* Shadow on the left */
+    }
+    table thead th{
+        background-color: #007bff !important; /* Set the background color of the table header */
+        color: #ffffff !important; /* Set the text color of the table header */
+        
+    }
+
+    .navbar {
+        background-color: #007bff !important; /* Navbar background color */
+        width: 100%; /* Set the width of the navbar */
+        height: 80px;
+    }
+
+    .navbar-brand, .navbar-nav .nav-link {
+        color: #fff !important; /* Text color for navbar links */
+    }
+
+    .dropdown-menu {
+        background-color: #007bff !important; /* Dropdown menu background color */
+    }
+
+    .dropdown-menu .dropdown-item {
+        color: #000000 !important; /* Text color for dropdown menu items */
+    }
+
+    .dropdown-menu .dropdown-item:hover {
+        background-color: #007bff !important; /* Background color for hovered dropdown menu items */
+        color: #fff !important; /* Text color for hovered dropdown menu items */
+    }
+
+    .nav-item {
+        margin-right: 15px; /* Add space between nav items */
+    }
+    
+    .text-center {
+        text-align: center; /* Align text center for table cells */
+    }
+
+    /* CSS code to style the button */
+.btn-outline-success {
+    color: #0000FF; /* Text color */
+    background-color: #F0F8FF; /* Background color */
+    border-color: #0000FF; /* Border color */
+    border-width: 2px; /* Border width */
+    border-style: solid; /* Border style */
+    border-radius: 5px; /* Border radius */
+    padding: 0.375rem 0.75rem; /* Padding */
+    font-size: 1rem; /* Font size */
+    line-height: 1.5; /* Line height */
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; /* Transition effect */
+}
+
+.btn-outline-success:hover {
+    color: #fff; /* Text color on hover */
+    background-color: #0000FF; /* Background color on hover */
+    border-color: #0000FF; /* Border color on hover */
+}
+
+.form-control {
+    border: 1px solid #0000FF; /* Border style and color */
+    border-radius: 5px; /* Border radius */
+    padding: 0.375rem 0.75rem; /* Padding */
+    font-size: 1rem; /* Font size */
+    line-height: 1.5; /* Line height */
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; /* Transition effect */
+}
+
+.form-control:focus {
+    border-color: #0000FF; /* Border color on focus */
+    outline: 0; /* Remove default focus outline */
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Add focus shadow */
+}
+</style>
+{% block body %}
+        {% endblock body%}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+        crossorigin="anonymous"></script>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html> 

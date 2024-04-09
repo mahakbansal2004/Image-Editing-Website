@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upgrade to Premium</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+        }
+        
+        .left-section {
+            width: 60%;
+            float: left;
+            
+            flex: 1;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .right-section {
+            width: 40%;
+            float: left;
+            flex: 1;
+            position: relative;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow: hidden;
+        }
+        
+        .upgrade-box {
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            text-align: center;
+            max-width: 80%;
+        }
+        
+        .upgrade-box h2 {
+            margin-top: 0;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        
+        .features-list {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+        
+        .features-list li {
+            margin-bottom: 10px;
+        }
+        
+        .features-list li::before {
+            content: "\2022";
+            color: #007bff;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+        
+        .signup-form {
+            max-width: 80%;
+            margin-bottom: 20px;
+        }
+        
+        .signup-form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1.1rem;
+        }
+        
+        .signup-form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+        
+        .signup-form button:hover {
+            background-color: #0056b3;
+        }
+        
+        .signin-options {
+            display: flex;
+            justify-content: space-between;
+            max-width: 80%;
+        }
+        
+        .signin-options button {
+            width: 48%;
+            padding: 10px;
+            background-color: #3b5998;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+        
+        .signin-options button:nth-child(2) {
+            background-color: #dd4b39;
+        }
+        
+        .signin-options button:hover {
+            opacity: 0.8;
+        }
+        
+        .subtext {
+            font-size: 1.2rem;
+            margin-top: 20px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+
+        .divider {
+            height: 2px;
+            width: 100%;
+            background-color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .decorative-line {
+            width: 100%;
+            height: 1px;
+            background-color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .decorative-circle {
+            width: 30px;
+            height: 30px;
+            background-color: #fff;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        .decorative-square {
+            width: 30px;
+            height: 30px;
+            background-color: #fff;
+            margin-bottom: 20px;
+        }
+
+        /* Button styles */
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Facebook button */
+        .btn-facebook {
+            background-color: #3b5998;
+            color: #fff;
+        }
+
+        /* Google button */
+        .btn-google {
+            background-color: #dd4b39;
+            color: #fff;
+        }
+
+        /* Button hover effect */
+        .btn:hover {
+            background-color: #333;
+        }
+
+        /* Video styling */
+        video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+        }
+
+        .terms-section {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .terms-section p {
+            font-size: 14px;
+            color: #777;
+        }
+        
+        .terms-section a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        
+        .images {
+            margin-top: 10px;
+        }
+        
+        .images img {
+            width: 80px;
+            height: 50px;
+            margin-right: 10px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="left-section">
+        <div>
+            <h2 class="section-title">Join Premium Now!</h2>
+            <div class="divider"></div>
+        </div>
+        <form class="signup-form">
+            <input type="text" placeholder="Your Name">
+            <input type="email" placeholder="Your Email">
+            <input type="password" placeholder="Create Password">
+            <button type="submit">Sign Up for Premium</button>
+        </form>
+        <p>Or sign up with:</p>
+        <!-- Styled buttons for Facebook and Google sign up -->
+        <a href="https://www.facebook.com/login.php" target="_blank" class="btn btn-facebook">Sign Up with Facebook</a><br>
+        <a href="https://accounts.google.com/signin" target="_blank" class="btn btn-google">Sign Up with Google</a>
+        
+<br><br>
+        <div class="terms-section">
+            <p>By creating an account, you agree to Mahak image editting website <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></p>
+            <div class="images">
+                <img src="static/terms1.png" alt="Image 1">
+                <img src="static/terms2.png" alt="Image 2">
+                <img src="static/terms3.png" alt="Image 3">
+            </div>
+        </div>
+    </div>
+    <div class="right-section">
+        <video autoplay muted loop>
+            <source src="static/bgvid2.mp4" type="video/mp4"> <!-- Replace 'your-video.mp4' with your video file -->
+            Your browser does not support the video tag.
+        </video>
+        <div class="upgrade-box">
+            <h2>Upgrade to Premium</h2>
+            <ul class="features-list">
+                <li>Full access to all tools</li>
+                <li>Unlimited document processing</li>
+                <li>No Ads</li>
+                <li>Priority customer support</li>
+                <li>Exclusive discounts on premium content</li>
+            </ul>
+            <div class="decorative-line"></div>
+            <p class="subtext">Start your premium journey today!</p>
+            
+        </div>
+    </div>
+
+    
+</body>
+</html>

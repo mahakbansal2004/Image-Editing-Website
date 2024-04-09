@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block title %} Compress Image {% endblock title %} 
+{% block body %}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h1 class="card-title text-center mb-4">Crop Your Images</h1>
+                    <br>
+                    <input type="file" id="inputImage" accept="image/*">
+                    <br><br>
+                    <div id="imageContainer" style="display: none;">
+                        <img id="image" src="#" alt="Uploaded Image">
+                    </div>
+                    <br>
+                    <button class="btn btn-primary btn-lg btn-block" id="cropButton">Crop Image</button>
+                    <br>
+                    <div id="message" style="display: none;">
+                        <p>Image cropped successfully!</p>
+                        <button class="btn btn-primary" id="viewCroppedImage">View Cropped Image</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
+<!-- Include Cropper.js library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+
+<script>
+    // Initialize Cropper.js
+    var cropper;
+
+    document.getElementById('inputImage').addEventListener('change', function(e) {
+        var file = e.target.files[0];
+        var reader = new FileReader();
+        reader.onload = function(event) {
+            var dataUrl = event.target.result;
+
+            // Destroy previous instance of Cropper (if any)
+            if (cropper) {
+                cropper.destroy();
+            }
+
+            // Initialize Cropper with the image element
+            var image = document.getElementById('image');
+            image.src = dataUrl;
+            document.getElementById('imageContainer').style.display = 'block'; // Show the image container
+            cropper = new Cropper(image, {
+                aspectRatio: 16 / 9, // Set aspect ratio as needed
+                viewMode: 1 // Set view mode as needed (0, 1, 2, 3)
+            });
+        };
+        reader.readAsDataURL(file);
+    });
+
+    document.getElementById('cropButton').addEventListener('click', function() {
+        // Get cropped data as a blob
+        cropper.getCroppedCanvas().toBlob(function(blob) {
+            // You can send this blob to your server for further processing or display it on the client side
+            var croppedImage = new Image();
+            croppedImage.src = URL.createObjectURL(blob);
+            document.getElementById('message').style.display = 'block'; // Show the message
+            document.getElementById('viewCroppedImage').addEventListener('click', function() {
+                // Display the cropped image in a new tab
+                var newTab = window.open('', '_blank');
+                newTab.document.write('<img src="' + croppedImage.src + '">');
+            });
+        });
+    });
+    
+</script>
+
+{% endblock body %}

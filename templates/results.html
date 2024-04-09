@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %}Search Results{% endblock title %} 
+
+{% block body %}
+<br><br><br>
+    <div class="search-results-container">
+        <h1>Search Results</h1>
+        <p>Showing results for: <strong>{{ query }}</strong></p>
+        <ul>
+            {% for result in results %}
+            <li class="search-result-item">
+                <h2><a href="{{ result.link }}">{{ result.title }}</a></h2>
+                <p>{{ result.description }}</p>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <style>
+        .search-results-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease; /* Add transition for smooth animation */
+        }
+        .search-results-container h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .search-results-container p {
+            font-size: 16px;
+            color: #666;
+        }
+        .search-results-container ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .search-result-item {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 20px;
+            transition: all 0.3s ease; /* Add transition for smooth animation */
+        }
+        .search-result-item h2 {
+            font-size: 24px;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        .search-result-item a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .search-result-item a:hover {
+            text-decoration: underline;
+        }
+    </style>
+{% endblock body %}

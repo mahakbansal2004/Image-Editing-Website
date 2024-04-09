@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %} Watermark Image {% endblock title %} 
+{% block body %}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h1 class="card-title text-center mb-4">Watermark Your Images</h1>
+                    <br>
+                    <form action="/watermarkimage" method="POST" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="imageInput" class="form-label visually-hidden">Select Image to Watermark</label>
+                            <!-- Change name attribute to "file" to match Flask code -->
+                            <input class="form-control" type="file" id="imageInput" name="file" accept="image/*">
+                        </div>
+                        <div class="mb-3">
+                            <label for="watermarkInput" class="form-label">Select Watermark Image</label>
+                            <input class="form-control" type="file" id="watermarkInput" name="watermark" accept="image/*">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Watermark Image</button>
+                    </form>
+                    {% if watermarked_img_url %}
+                        <div class="alert alert-success mt-3" role="alert">
+                            Image watermarked successfully!
+                        </div>
+                        <a href="{{ watermarked_img_url }}" class="btn btn-primary btn-lg btn-block mt-3">Click here to view your watermarked image</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+#<script src="https://cdn.userway.org/widget.js?account=YOUR_ACCOUNT_ID"></script>
+
+{% endblock body %}

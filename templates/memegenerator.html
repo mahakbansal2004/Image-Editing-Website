@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% block title %} Meme Generator {% endblock title %} 
+{% block body %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h1 class="card-title text-center mb-4">Meme Generator</h1>
+                    <form id="image-form" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="image-upload" class="form-label">Upload Image:</label>
+                            <input type="file" id="image-upload" name="image" accept="image/*" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Upload</button>
+                    </form>
+                    <canvas id="meme-canvas" width="500" height="500" style="display: none;"></canvas>
+                    <form id="meme-form" style="display: none;">
+                        <div class="mb-3">
+                            <label for="meme-text" class="form-label">Enter Text:</label>
+                            <input type="text" id="meme-text" name="meme_text" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Text</button>
+                        <button type="button" id="delete-text" class="btn btn-secondary">Delete Text</button>
+                    </form>
+                    <button id="view-meme" style="display: none;" class="btn btn-primary btn-lg mt-3">Click to View Your Meme</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var imageForm = document.getElementById('image-form');
+        var imageUpload = document.getElementById('image-upload');
+        var memeCanvas = document.getElementById('meme-canvas');
+        var ctx = memeCanvas.getContext('2d');
+        var textElements = [];
+        var uploadedImage; // Store the uploaded image
+
+        imageForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            var file = imageUpload.files[0];
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    uploadedImage = new Image();
+                    uploadedImage.onload = function() {
+                        memeCanvas.width = 500;
+                        memeCanvas.height = 500;
+                        ctx.drawImage(uploadedImage, 0, 0, memeCanvas.width, memeCanvas.height);
+                        memeCanvas.style.display = 'block';
+                        document.getElementById('meme-form').style.display = 'block';
+                    };
+                    uploadedImage.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        memeCanvas.addEventListener('click', function (event) {
+            var x = event.offsetX;
+            var y = event.offsetY;
+            var text = document.getElementById('meme-text').value;
+            textElements.push({ text: text, x: x, y: y });
+            drawText(ctx, text, x, y);
+        });
+
+        function drawText(ctx, text, x, y) {
+            ctx.font = '30px Arial';
+            ctx.fillStyle = 'white';
+            ctx.textAlign = 'center';
+            ctx.fillText(text, x, y);
+        }
+
+        document.getElementById('meme-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            var text = document.getElementById('meme-text').value;
+            var x = memeCanvas.width / 2;
+            var y = memeCanvas.height / 2;
+            textElements.push({ text: text, x: x, y: y });
+            drawText(ctx, text, x, y);
+        });
+
+        document.getElementById('delete-text').addEventListener('click', function () {
+            textElements.pop();
+            redrawCanvas(ctx);
+        });
+
+        function redrawCanvas(ctx) {
+            ctx.clearRect(0, 0, memeCanvas.width, memeCanvas.height);
+            ctx.drawImage(uploadedImage, 0, 0, memeCanvas.width, memeCanvas.height); // Redraw the uploaded image
+            textElements.forEach(function (element) {
+                drawText(ctx, element.text, element.x, element.y);
+            });
+        }
+
+        document.getElementById('meme-form').addEventListener('submit', function () {
+            document.getElementById('view-meme').style.display = 'block';
+        });
+
+        document.getElementById('view-meme').addEventListener('click', function () {
+            redrawCanvas(ctx);
+            var memeURL = memeCanvas.toDataURL();
+            window.open(memeURL, '_blank');
+        });
+    });
+</script>
+{% endblock body %}

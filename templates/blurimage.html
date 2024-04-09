@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %} Blur Image {% endblock title %} 
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+{% endblock styles %}
+{% block body %}
+
+<div class="container py-5" margin-top:20px;>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h1 class="card-title text-center mb-4">Blur Your Images</h1>
+                    <br>
+                    <form action="/blurimage" method="POST" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="imageInput" class="form-label visually-hidden">Select Image to Blur</label>
+                            <!-- Change name attribute to "file" to match Flask code -->
+                            <input class="form-control" type="file" id="imageInput" name="file" accept="image/*">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Blur Image</button>
+                    </form>
+                    {% if blurred_img_url %}
+                        <div class="alert alert-success mt-3" role="alert">
+                            Image blurred successfully!
+                        </div>
+                        <a href="{{ blurred_img_url }}" class="btn btn-primary btn-lg btn-block mt-3">Click here to view your blurred image</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}

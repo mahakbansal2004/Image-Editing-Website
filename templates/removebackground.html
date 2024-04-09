@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %} Remove Background {% endblock title %} 
+{% block body %}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h1 class="card-title text-center mb-4">Remove Background from Image</h1>
+                    <form action="/removebackground" method="POST" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="imageInput" class="form-label visually-hidden">Select Image</label>
+                            <input class="form-control" type="file" id="imageInput" name="file" accept="image/*">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Remove Background</button>
+                    </form>
+                    {% if processed_img_url %}
+                        <div class="alert alert-success mt-3" role="alert">
+                            Background removed successfully!
+                        </div>
+                        <div class="text-center">
+                            <a href="{{ processed_img_url }}" class="btn btn-primary mt-3" target="_blank">View Processed Image</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}

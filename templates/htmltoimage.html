@@ -1,0 +1,41 @@
+<!-- htmltoimage.html -->
+{% extends 'base.html' %}
+{% block title %} Convert HTML to Image {% endblock title %}
+{% block body %}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h1 class="card-title text-center mb-4">Convert HTML to Image</h1>
+                    <form action="/htmltoimage" method="POST" class="needs-validation" novalidate>
+                        <div class="mb-3">
+                            <label for="urlInput" class="form-label">Enter URL</label>
+                            <input class="form-control" type="url" id="urlInput" name="url" placeholder="Enter URL" required>
+                            <div class="invalid-feedback">
+                                Please provide a valid URL.
+                            </div>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Convert to Image</button>
+                    </form>
+                    {% if image_url %}
+                        <div class="alert alert-success mt-3" role="alert">
+                            HTML converted to image successfully! <a href="{{ image_url }}" target="_blank">View Converted Image</a>
+                        </div>
+                    {% endif %}
+                    {% if error %}
+                        <div class="alert alert-danger mt-3" role="alert">
+                            {{ error }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}

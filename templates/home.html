@@ -1,0 +1,368 @@
+{% extends 'base.html' %}
+{% block title %} Image Editing Website {% endblock title %} 
+{% block body %}
+
+<!-- Hero Section -->
+<section id="one" class="hero" style="height: 450px;">
+    <video autoplay muted loop>
+        <source src="static/bgvid1.mp4" type="video/mp4"> 
+        Your browser does not support the video tag.
+    </video>
+    <div class="container">
+        <h1 class="display-4">Unlock Your Image Editing Potential</h1>
+        <p class="lead">Enhance your images effortlessly with our comprehensive suite of editing tools.</p>
+    </div>
+</section>
+
+<!-- Tools Section -->
+<section class="tools py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Essential Editing Tools</h2>
+        <div class="row">
+            <!-- Tool Items -->
+            <div class="col-md-4 mb-4">
+                <div class="tool-item">
+                    <img src="static/compress.png" alt="Compress Icon" width="50">
+                    <h3>Compress</h3>
+                    <p>Reduce file size without sacrificing quality</p>
+                    <a href="/compressimage" class="btn btn-primary">Try Now</a>
+                </div>
+            </div>
+            <!-- Tool: Resize -->
+            <div class="col-md-4 mb-4">
+                <div class="tool-item">
+                    <img src="static/resize.png" alt="Resize Icon" width="50">
+                    <h3>Resize</h3>
+                    <p>Change the dimensions of your image</p>
+                    <a href="/resizeimage" class="btn btn-primary">Try Now</a>
+                </div>
+            </div>
+            <!-- Tool: Crop -->
+            <div class="col-md-4 mb-4">
+                <div class="tool-item">
+                    <img src="static/crop.png" alt="Crop Icon" width="50">
+                    <h3>Crop</h3>
+                    <p>Cut out unwanted parts of your image</p>
+                    <a href="/cropimage" class="btn btn-primary">Try Now</a>
+                </div>
+            </div>
+            <!-- Tool: Convert to JPG -->
+            <div class="col-md-4 mb-4">
+                <div class="tool-item">
+                    <img src="static/converttojpg.png" alt="Convert to JPG Icon" width="50">
+                    <h3>Convert to JPG</h3>
+                    <p>Convert your image to JPG format</p>
+                    <a href="/converttojpg" class="btn btn-primary">Try Now</a>
+                </div>
+            </div>
+            <!-- Tool: Photo Editor -->
+            <div class="col-md-4 mb-4">
+                <div class="tool-item">
+                    <img src="static/photoeditor.png" alt="Photo Editor Icon" width="50">
+                    <h3>Photo Editor</h3>
+                    <p>Edit your photos with various tools</p>
+                    <a href="/photoeditor" class="btn btn-primary">Try Now</a>
+                </div>
+            </div>
+            <!-- Tool: Upscale -->
+            <div class="col-md-4 mb-4">
+                <div class="tool-item">
+                    <img src="static/upscale.png" alt="Upscale Icon" width="50">
+                    <h3>Upscale</h3>
+                    <p>Increase the resolution of your image</p>
+                    <a href="/upscale" class="btn btn-primary">Try Now</a>
+                </div>
+            </div>
+            <!-- Tool: Remove Background -->
+            <div class="col-md-4 mb-4">
+                <div class="tool-item">
+                    <img src="static/removebg.png" alt="Remove Background Icon" width="50">
+                    <h3>Remove Background</h3>
+                    <p>Remove background from your image</p>
+                    <a href="/removebackground" class="btn btn-primary">Try Now</a>
+                </div>
+            </div>
+            <!-- Tool: Meme Generator -->
+            <div class="col-md-4 mb-4">
+                <div class="tool-item">
+                    <img src="static/memegenerator.png" alt="Meme Generator Icon" width="50">
+                    <h3>Meme Generator</h3>
+                    <p>Create memes with your images</p>
+                    <a href="/memegenerator" class="btn btn-primary">Try Now</a>
+                </div>
+            </div>
+            <!-- Tool: Rotate -->
+            <div class="col-md-4 mb-4">
+                <div class="tool-item">
+                    <img src="static/rotate.png" alt="Rotate Icon" width="50">
+                    <h3>Rotate</h3>
+                    <p>Rotate your image to desired angle</p>
+                    <a href="/rotate" class="btn btn-primary">Try Now</a>
+                </div>
+            </div>
+            <!-- Tool: Convert from JPG -->
+            <div class="col-md-4 mb-4">
+                <div class="tool-item">
+                    <img src="static/convertfromjpg.png" alt="Convert from JPG Icon" width="50">
+                    <h3>Convert from JPG</h3>
+                    <p>Convert images from JPG format</p>
+                    <a href="/convertfromjpg" class="btn btn-primary">Try Now</a>
+                </div>
+            </div>
+            <!-- Tool: HTML to Image -->
+            <div class="col-md-4 mb-4">
+                <div class="tool-item">
+                    <img src="static/htmltoimage.png" alt="HTML to Image Icon" width="50">
+                    <h3>HTML to Image</h3>
+                    <p>Convert HTML content to image</p>
+                    <a href="/htmltoimage" class="btn btn-primary">Try Now</a>
+                </div>
+            </div>
+            <!-- Tool: Watermark Image -->
+            <div class="col-md-4 mb-4">
+                <div class="tool-item">
+                    <img src="static/watermark.png" alt="Watermark Icon" width="50">
+                    <h3>Watermark Image</h3>
+                    <p>Add watermark to your image</p>
+                    <a href="/watermarkimage" class="btn btn-primary">Try Now</a>
+                </div>
+            </div>
+            <!-- Tool: Blur Image -->
+            <div class="col-md-4 mb-4">
+                <div class="tool-item">
+                    <img src="static/blurimage.png" alt="Blur Image Icon" width="50">
+                    <h3>Blur Image</h3>
+                    <p>Apply blur effect to your image</p>
+                    <a href="/blurimage" class="btn btn-primary">Try Now</a>
+                    <div class="new-badge">New</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Photo Editing Tools -->
+<section class="photo-editing-tools py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Photo Editing Tools</h2>
+        <div class="row">
+            <!-- Tool: Optimize Web Images -->
+            <div class="col-md-4">
+                <div class="p-3 mb-3 tools">
+                    <h3>Optimize Web Images</h3>
+                    <p>Easily resize and compress multiple photos at once with pixel perfect accuracy. Instantly transform your online photos & images for web, social media, and e-commerce.</p>
+                </div>
+            </div>
+            <!-- Tool: Batch Edit Photos -->
+            <div class="col-md-4">
+                <div class="p-3 mb-3 tools">
+                    <h3>Batch Edit Photos</h3>
+                    <p>With batch processing, you can convert multiple photos at the same time. We supports PNG, JPG, GIF, WEBP, HEIC, RAW conversions, and more. Mass convert files up to 1GB per task with Premium.</p>
+                </div>
+            </div>
+            <!-- Tool: Edit Documents -->
+            <div class="col-md-4">
+                <div class="p-3 mb-3 tools">
+                    <h3>Edit Documents</h3>
+                    <p>Mahak Image editting website is your number 1 web app to help you edit PDF with ease. Enjoy all the tools you need to work efficiently with your documents.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Trusted Image Editor Section -->
+<section class="trusted-editor">
+    <div class="container">
+        <h2 class="text-center mb-4">Your Trusted Online Image Editor</h2>
+        <p class="text-center mb-4">Mahak Image editting website is your simple solution for editing images online. Access all the tools you need to enhance your images easily, straight from the web, with 100% security.</p>
+        <div class="d-flex justify-content-center">
+            <div class="mr-3">
+                <img src="static/t1.png" alt="ISO27001 certified" width="60">
+            </div>
+            <div class="ml-3">
+                <img src="static/t2.png" alt="Secure connection HTTPS" width="60">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Premium Features Section -->
+<section id="premium-features" class="premium-features bg-dark text-white py-5">
+    <div class="container">
+        <div class="row">
+            <!-- Premium Features Content -->
+            <div class="col-md-6">
+                <div class="premium-content">
+                    <h2 class="mb-4">Unlock Premium Features</h2>
+                    <p class="mb-4">Enhance your editing experience with exclusive premium tools and an ad-free environment.</p>
+                    <a href="/premium" class="btn btn-primary btn-lg">Upgrade Now</a>
+                </div>
+            </div>
+            <!-- Premium Features Image -->
+            <div class="col-md-6 d-flex align-items-center justify-content-center">
+                <img src="static/premium.jpeg" alt="Premium Features" class="img-fluid">
+            </div>
+        </div>
+    </div>
+    <a id="back-to-top" href="#one">Back to Top</a>
+</section>
+
+
+
+
+<style>
+    /* Global Styles */
+    body {
+        font-family: Arial, sans-serif;
+    }
+    .new-badge {
+        position: absolute;
+        top: 10px; /* Adjust distance from top */
+        right: 10px; /* Adjust distance from right */
+        display: inline-block;
+        padding: 6px 12px;
+        background-color: #FF5733; /* Red background */
+        color: white;
+        font-weight: bold;
+        border-radius: 5px;
+        transform: rotate(-45deg);
+        transform-origin: top right;
+        z-index: 1;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        animation: pulse 2s infinite alternate; /* Optional animation */
+    }
+
+    .new-badge::before {
+        content: "";
+        position: absolute;
+        top: -10px; /* Adjust distance from top */
+        right: -10px; /* Adjust distance from right */
+        width: 20px; /* Adjust width of slanted part */
+        height: 20px; /* Adjust height of slanted part */
+        background: linear-gradient(to bottom right, #FF5733, #FFC300); /* Gradient background */
+        transform: rotate(45deg);
+        z-index: -1;
+        border-top-right-radius: 5px;
+    }
+
+    /* Optional pulse animation */
+    @keyframes pulse {
+        from {
+            transform: scale(1);
+        }
+        to {
+            transform: scale(1.1);
+        }
+    }
+    
+    /* Hero Section Styles */
+    .hero {
+        position: relative; /* Ensure proper stacking of content */
+        overflow: hidden; /* Hide overflow content from the video */
+        color: #fff;
+        padding: 150px 0;
+        text-align: center;
+        
+    }
+    
+    .hero video {
+        position: absolute; /* Position the video to cover the entire background */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Ensure the video covers the entire container */
+        z-index: -1; /* Place the video behind other content */
+    }
+    
+
+    /* Tool Section Styles */
+    .tools h2,
+    .photo-editing-tools h2,
+    .trusted-editor h2,
+    .premium-content h2 {
+        color: #333;
+    }
+
+    .photo-editing-tools {
+        background-color: #f8f9fa;
+        padding: 0; /* Optional: Adjust padding as needed */
+    }
+
+    /* Custom style for changing heading color */
+    h2 {
+        color: #007bff; /* Change to any color you prefer */
+    }
+
+    .tool-item {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        text-align: center;
+        transition: transform 0.3s, box-shadow 0.3s; /* Add transition for smooth animation */
+    }
+
+    .tool-item img {
+        margin-bottom: 20px;
+    }
+
+    /* Add hover effect */
+    .tool-item:hover {
+        transform: translateY(-5px); /* Move the tool item up slightly */
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.2); /* Add shadow effect on hover */
+    }
+
+    /* Premium Features Section Styles */
+    .premium-features {
+        background-color: #000;
+    }
+
+    .premium-content h2 {
+        color: #fff;
+    }
+
+    
+
+    .trusted-editor {
+        background-color: #f8f9fa;
+        padding: 50px 0;
+    }
+    
+    .trusted-editor h2 {
+        color: #007bff; /* Change to any color you prefer */
+        font-size: 2rem;
+    }
+
+    .trusted-editor p {
+        color: #666666;
+        font-size: 1rem;
+    }
+
+
+    #back-to-top {
+        position: fixed;
+        bottom: 50px;
+        right: 20px;
+        background-color: #007bff; /* Change as needed */
+        color: #fff; /* Change as needed */
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+    
+    #back-to-top:hover {
+        background-color: #0056b3; /* Change as needed */
+        color: #fff; /* Change as needed */
+    }
+    
+
+
+    
+
+   
+</style>
+
+
+{% endblock body %}
